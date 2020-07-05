@@ -1,0 +1,21 @@
+{
+  "code-runner.enableAppInsights": false,
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "typescript": "node --require='ts-node/register'"
+  },
+  "mochaExplorer.files": "exercises/*/spec/**/*.spec.ts",
+  "mochaExplorer.logpanel": true,
+  "mochaExplorer.pruneFiles": true,
+
+  "terminal.integrated.env.osx": {
+		"PATH": "node_modules/.bin:${env:PATH}"
+  },
+  "terminal.integrated.env.linux": {
+		"PATH": "node_modules/.bin:${env:PATH}"
+  },
+  "terminal.integrated.env.windows": {
+		"PATH": "node_modules\\.bin;${env:PATH}"
+	}
+}
+

@@ -1,0 +1,43 @@
+{
+  "name": "@serenity-js/workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "playground start",
+    "clean": "rimraf target && npm",
+    "postinstall": "npm run postinstall:setup && npm run postinstall:check",
+    "postinstall:setup": "npm run postinstall:setup:lerna  && npm run postinstall:setup:serenity",
+    "postinstall:setup:lerna": "lerna bootstrap --hoist",
+    "postinstall:setup:serenity": "serenity-bdd update --ignoreSSL --cacheDir=node_modules/@serenity-js/serenity-bdd/cache",
+    "postinstall:check": "npm run postinstall:check:node && npm run postinstall:check:serenity && npm run postinstall:check:chrome && npm run postinstall:check:congrats",
+    "postinstall:check:node": "check-node-version --node 12",
+    "postinstall:check:serenity": "serenity-bdd --version",
+    "postinstall:check:chrome": "node scripts/check-chrome.js",
+    "postinstall:check:congrats": "node scripts/congrats.js",
+    "lerna": "lerna"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serenity-js/workshop.git"
+  },
+  "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/serenity-js/workshop/issues"
+  },
+  "homepage": "https://github.com/serenity-js/workshop#readme",
+  "devDependencies": {
+    "@serenity-js/serenity-bdd": "^2.11.1",
+    "@serenity-js/playground": "^1.0.3",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^12.12.47",
+    "check-node-version": "^4.0.3",
+    "chrome-launcher": "^0.13.3",
+    "lerna": "^3.22.1",
+    "mocha": "^8.0.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}

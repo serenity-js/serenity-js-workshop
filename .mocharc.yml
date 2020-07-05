@@ -1,0 +1,16 @@
+# Learn more about available config options at:
+# https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
+
+#reporter: 'spec'
+reporter: '@serenity-js/mocha'
+require:
+  - ts-node/register
+
+spec: './exercises/**/*.spec.ts'
+
+
+timeout: 5000
+
+watch: false
+watch-files:
+  - 'spec/**/*.ts'

@@ -1,0 +1,29 @@
+{
+  "name": "02-mocha",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "author": "Jan Molak <jan.molak@smartcodeltd.co.uk>",
+  "homepage": "https://serenity-js.org/",
+  "license": "CC-BY-NC-SA-4.0",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serenity-js/workshop.git"
+  },
+  "scripts": {
+    "test": "mocha ./spec/solution.spec.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/workshop/issues"
+  },
+  "dependencies": {
+    "@serenity-js/assertions": "^2.11.1",
+    "@serenity-js/core": "^2.11.1",
+    "@serenity-js/console-reporter": "^2.11.1",
+    "@serenity-js/mocha": "^2.11.1",
+    "@serenity-js/rest": "^2.11.1",
+    "@types/mocha": "^7.0.2",
+    "mocha": "^8.0.1"
+  }
+}

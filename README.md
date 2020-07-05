@@ -75,6 +75,20 @@ When the installation is finished, the project will verify your environment and 
 
 ```
 
+## Running tests
+
+Before running the tests, start the demo app by executing the following command using your computer terminal:
+
+```console
+npm start
+```
+
+Next, in a **second** terminal, execute all tests for all the exercises:
+
+```console
+npm test
+```
+
 ## Using Visual Studio Code
 
 Visual Studio Code keyboard shortcuts: 

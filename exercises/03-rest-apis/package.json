@@ -19,11 +19,11 @@
     "url": "https://github.com/serenity-js/workshop/issues"
   },
   "dependencies": {
-    "@serenity-js/assertions": "^2.11.1",
-    "@serenity-js/core": "^2.11.1",
-    "@serenity-js/console-reporter": "^2.11.1",
-    "@serenity-js/mocha": "^2.11.1",
-    "@serenity-js/rest": "^2.11.1",
+    "@serenity-js/assertions": "^2.11.4",
+    "@serenity-js/core": "^2.11.4",
+    "@serenity-js/console-reporter": "^2.11.4",
+    "@serenity-js/mocha": "^2.11.4",
+    "@serenity-js/rest": "^2.11.4",
     "@types/mocha": "^7.0.2",
     "mocha": "^8.0.1"
   }

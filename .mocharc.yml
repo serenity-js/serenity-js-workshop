@@ -6,11 +6,10 @@ reporter: '@serenity-js/mocha'
 require:
   - ts-node/register
 
-spec: './exercises/**/*.spec.ts'
-
+spec: 'spec/**/*.spec.ts'
 
 timeout: 5000
 
 watch: false
 watch-files:
-  - 'spec/**/*.ts'
+  - 'spec/**/*.spec.ts'

@@ -16,6 +16,11 @@
   },
   "terminal.integrated.env.windows": {
 		"PATH": "node_modules\\.bin;${env:PATH}"
-	}
+  },
+  
+  "typescript.preferences.quoteStyle": "single",
+  "files.autoSave": "afterDelay",
+
+  "debug.inlineValues": true
 }
 

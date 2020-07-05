@@ -32,7 +32,7 @@ describe('Todo List app', () => {
                     // Exercise 1
                     Ensure.that(LastResponse.body(), property('uptime', isGreaterThan(0))),
                     // Exercise 2
-                    Ensure.that(LastResponse.body(), property('uptime', equals(0))),
+                    // Ensure.that(LastResponse.body(), property('uptime', equals(0))),
                 )
         );
     });

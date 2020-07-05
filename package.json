@@ -15,6 +15,8 @@
     "postinstall:check:serenity": "serenity-bdd --version",
     "postinstall:check:chrome": "node scripts/check-chrome.js",
     "postinstall:check:congrats": "node scripts/congrats.js",
+    "test": "lerna run test --stream --concurrency 1",
+    "solutions": "lerna run solution --stream --concurrency 1",
     "lerna": "lerna"
   },
   "repository": {

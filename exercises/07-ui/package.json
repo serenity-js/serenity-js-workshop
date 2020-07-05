@@ -12,7 +12,8 @@
     "url": "git+https://github.com/serenity-js/workshop.git"
   },
   "scripts": {
-    "test": "protractor ../../protractor.conf.js --specs=e2e/solution.e2e.ts"
+    "test": "protractor ../../protractor.conf.js --specs=e2e/exercise.e2e.ts",
+    "solution": "protractor ../../protractor.conf.js --specs=e2e/solution.e2e.ts"
   },
   "bugs": {
     "url": "https://github.com/serenity-js/workshop/issues"

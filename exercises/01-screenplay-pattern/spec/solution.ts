@@ -5,9 +5,12 @@
 //   - Send         - https://serenity-js.org/modules/rest/class/src/screenplay/interactions/Send.ts~Send.html
 //   - *Request     - https://serenity-js.org/modules/rest/identifiers.html#model
 //
+// - @serenity-js/assertions:
+//   - Ensure       - https://serenity-js.org/modules/assertions/class/src/Ensure.ts~Ensure.html
+//   - expectations - https://serenity-js.org/modules/assertions/identifiers.html#expectations
+//
 // - TypeScript
-//   - Interfaces       - https://www.typescriptlang.org/docs/handbook/interfaces.html
-
+//   - Interfaces   - https://www.typescriptlang.org/docs/handbook/interfaces.html
 
 import { actorCalled, configure, Log } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';

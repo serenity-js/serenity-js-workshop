@@ -30,7 +30,7 @@ describe('Todo List app', () => {
                     // Demo step 2
                     Ensure.that(LastResponse.status(), equals(200)),
                     // Exercise 1
-                    Ensure.that(LastResponse.body(), property('uptime', isGreaterThan(0))),
+                    // Ensure.that(LastResponse.body(), property('uptime', isGreaterThan(0))),
                     // Exercise 2
                     // Ensure.that(LastResponse.body(), property('uptime', equals(0))),
                 )

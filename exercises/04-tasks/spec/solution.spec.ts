@@ -11,12 +11,12 @@
 
 import 'mocha';
 
-import { Actor, actorCalled, Answerable, Cast, configure, engage, Log, Task } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, configure, engage, Log, Task } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send, PatchRequest } from '@serenity-js/rest';
 import { and, containAtLeastOneItemThat, Ensure, equals, property, containItemsWhereEachItem, Expectation } from '@serenity-js/assertions';
 
-describe('04 Mocha (exercise)', () => {
+describe('04 Mocha (solution)', () => {
 
     class Actors implements Cast {
         prepare(actor: Actor): Actor {
@@ -27,65 +27,58 @@ describe('04 Mocha (exercise)', () => {
     }
 
     // Tasks:
-
-    const ClearTheDatabase = () =>
+    
+    const ClearTheDatabase = () =>                                          // a simple task with no parameters
         Task.where(`#actor clears the database`,
             Send.a(DeleteRequest.to('/api/todos')),
             Ensure.that(LastResponse.status(), equals(200)),
         )
 
-    const AddAnItemCalled = (name: string) => 
+    const AddAnItemCalled = (name: string) =>                               // a Task with a single parameter
         Task.where(`#actor adds an item called ${ name }`,
             Send.a(PostRequest.to('/api/todos').with({ title: name })),
             Log.the(LastResponse.body()),
             Ensure.that(LastResponse.status(), equals(200)),
         )
 
-    const VerifyListContainsNewItemCalled = (name: string) =>
-        Task.where(`#actor verifies that the list contains a new item called ${ name }`,
-            Send.a(GetRequest.to('/api/todos')),
-            Log.the(LastResponse.body()),
-            Ensure.that(
-                LastResponse.body<Todo[]>(),
-                containAtLeastOneItemThat(and(
-                    property('title', equals(name)),
-                    property('completed', equals(false)),
-                ))
-            ),
-        )
-
-    const VerifyThat = (list: Answerable<Todo[]>) => ({
-        containsNewItemCalled: (name: string) => 
-            Task.where(`#actor verifies that the list contains a new item called ${ name }`,
-                Ensure.that(
-                    list,
-                    containAtLeastOneItemThat(and(
-                        property('title', equals(name)),
-                        property('completed', equals(false)),
-                    ))
-                ),
-            ),
-
-        containsAnItemThat: (expectation: Expectation<Todo>) =>
-            Task.where(`#actor verifies that the list contains an item that ${ expectation }`,
-                Ensure.that(
-                    list,
-                    containAtLeastOneItemThat(expectation)
-                ),
-            )
-    })
-
-    const MarkAllItemsAsCompleted = () => 
+    const MarkAllAsCompleted = () =>
         Task.where(`#actor marks all items as completed`,
             Send.a(PatchRequest.to('/api/todos').with({ completed: true })),
             Ensure.that(LastResponse.status(), equals(200)),
         )
 
-    const MarkAllItemsAsActive = () => 
-        Task.where(`#actor marks all items as active`,
+    const MarkAllAsActive = () =>
+        Task.where(`#actor marks all items as completed`,
             Send.a(PatchRequest.to('/api/todos').with({ completed: false })),
             Ensure.that(LastResponse.status(), equals(200)),
-        )        
+        )       
+
+    const VerifyRecordedTodos = {                                           // a more advanced object:
+                                                                            // it groups two Tasks, 
+        haveAtLeastOneThat: (expectation: Expectation<Todo, any>) =>        // each parameterized with an Expectation
+            Task.where(`#actor verifies that recorded todos ${ expectation }`,
+            
+                Send.a(GetRequest.to('/api/todos')),
+                Log.the(LastResponse.body()),
+
+                Ensure.that(
+                    LastResponse.body<Todo[]>(),
+                    containAtLeastOneItemThat(expectation)
+                ),
+            ),
+
+        haveAllItemsThat: (expectation: Expectation<Todo, any>) =>
+            Task.where(`#actor verifies that recorded todos ${ expectation }`,
+            
+                Send.a(GetRequest.to('/api/todos')),
+                Log.the(LastResponse.body()),
+
+                Ensure.that(
+                    LastResponse.body<Todo[]>(),
+                    containItemsWhereEachItem(expectation)
+                ),
+            )
+    }
 
     // Specs:
 
@@ -113,32 +106,32 @@ describe('04 Mocha (exercise)', () => {
 
                 actorCalled('Alice')
                     .attemptsTo(
+
                         AddAnItemCalled('Learn Serenity/JS'),
                         
-                        // Approach 1:
-                        // - Extract the entire assertion into a Task
-                        
-                        VerifyListContainsNewItemCalled('Learn Serenity/JS'),
-
-                        // Alternatively, make the request first:
-                        Send.a(GetRequest.to('/api/todos')),
-
-                        // Approach 2:
-                        // - Make the task configurable with the list of Todos and the name of an expected item
-                        
-                        VerifyThat(LastResponse.body<Todo[]>()).containsNewItemCalled('Learn Serenity/JS'),
-
-                        // Approach 3:
-                        // - Make the task configurable with both the list of todos and an expectation
-
-                        VerifyThat(LastResponse.body<Todo[]>()).containsAnItemThat(and(
+                        VerifyRecordedTodos.haveAtLeastOneThat(and(
                             property('title', equals('Learn Serenity/JS')),
                             property('completed', equals(false)),
-                        ))
+                        )),
                     )
             )
 
 
+            it('allows for all todos to be marked as complete', () =>
+
+                actorCalled('Alice')
+                    .attemptsTo(
+                        AddAnItemCalled('Learn Serenity/JS'),
+                        AddAnItemCalled('Learn Screenplay Pattern'),
+                        
+                        MarkAllAsCompleted(),
+
+                        VerifyRecordedTodos.haveAllItemsThat(
+                            property('completed', equals(true)),
+                        ),
+                    )
+            )   
+            
             it('allows for all todos to be toggled', () =>
 
                 actorCalled('Alice')
@@ -146,18 +139,14 @@ describe('04 Mocha (exercise)', () => {
                         AddAnItemCalled('Learn Serenity/JS'),
                         AddAnItemCalled('Learn Screenplay Pattern'),
 
-                        MarkAllItemsAsCompleted(),
+                        MarkAllAsCompleted(),
+                        MarkAllAsActive(),
 
-                        // Verify that all items are marked as complete
-                        Send.a(GetRequest.to('/api/todos')),
-                        Log.the(LastResponse.body()),
-                        
-                        Ensure.that(
-                            LastResponse.body<Todo[]>(),
-                            containItemsWhereEachItem(property('completed', equals(true)))
+                        VerifyRecordedTodos.haveAllItemsThat(
+                            property('completed', equals(false)),
                         ),
                     )
-            )            
+            )       
         })
 
     })

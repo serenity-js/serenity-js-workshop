@@ -67,7 +67,7 @@ describe('03 Mocha (solution)', () => {
             )
 
 
-            it('allows for all todos to be toggled', () =>
+            it('allows for all todos to be marked as complete', () =>
 
                 actorCalled('Alice')
                     .attemptsTo(
@@ -93,9 +93,40 @@ describe('03 Mocha (solution)', () => {
                             containItemsWhereEachItem(property('completed', equals(true)))
                         ),
                     )
-            )            
-        })
+            )   
+            
+            it('allows for all todos to be toggled', () =>
 
+                actorCalled('Alice')
+                    .attemptsTo(
+                        // Add an item called 'Learn Serenity/JS'
+                        Send.a(PostRequest.to('/api/todos').with({ title: 'Learn Serenity/JS' })),
+                        Log.the(LastResponse.body()),
+                        Ensure.that(LastResponse.status(), equals(200)),
+
+                        // Add an item called 'Learn Screenplay Pattern'
+                        Send.a(PostRequest.to('/api/todos').with({ title: 'Learn Screenplay Pattern' })),
+                        Log.the(LastResponse.body()),
+                        Ensure.that(LastResponse.status(), equals(200)),
+
+                        // Mark all items as complete
+                        Send.a(PatchRequest.to('/api/todos').with({ completed: true })),
+                        Ensure.that(LastResponse.status(), equals(200)),
+
+                        // Mark all items as active
+                        Send.a(PatchRequest.to('/api/todos').with({ completed: false })),
+                        Ensure.that(LastResponse.status(), equals(200)),
+
+                        // Verify that all items are marked as active (not complete)
+                        Send.a(GetRequest.to('/api/todos')),
+                        Log.the(LastResponse.body()),
+                        Ensure.that(
+                            LastResponse.body<Todo[]>(),
+                            containItemsWhereEachItem(property('completed', equals(false)))
+                        ),
+                    )
+            )
+        })
     })
 })
 

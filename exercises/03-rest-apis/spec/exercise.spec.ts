@@ -66,7 +66,7 @@ describe('03 Mocha (exercise)', () => {
                     )
             )
 
-            it('allows for all todos to be toggled', () =>
+            it('allows for all todos to be marked as complete', () =>
 
                 actorCalled('Alice')
                     .attemptsTo(
@@ -76,6 +76,21 @@ describe('03 Mocha (exercise)', () => {
                         // - mark all items as complete
                         //   - PATCH '/api/todos' { completed: true }
                         // - ensure all items are marked as completed
+                    )
+            )
+
+            it('allows for all todos to be toggled', () =>
+
+                actorCalled('Alice')
+                    .attemptsTo(
+                        // implement me!
+                        // - add an item called 'Learn Serenity/JS'
+                        // - add an item called 'Learn Screenplay Pattern'
+                        // - mark all items as complete
+                        //   - PATCH '/api/todos' { completed: true }
+                        // - mark all items as active
+                        //   - PATCH '/api/todos' { completed: false }
+                        // - ensure all items are marked as active (not complete)
                     )
             )
         })

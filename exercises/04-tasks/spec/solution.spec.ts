@@ -41,19 +41,21 @@ describe('04 Mocha (solution)', () => {
             Ensure.that(LastResponse.status(), equals(200)),
         )
 
-    const MarkAllAsCompleted = () =>
-        Task.where(`#actor marks all items as completed`,
-            Send.a(PatchRequest.to('/api/todos').with({ completed: true })),
-            Ensure.that(LastResponse.status(), equals(200)),
-        )
+    const MarkAll = {                                                       // a more advanced object, which groups two Tasks
+        asCompleted: () =>
+            Task.where(`#actor marks all items as completed`,
+                Send.a(PatchRequest.to('/api/todos').with({ completed: true })),
+                Ensure.that(LastResponse.status(), equals(200)),
+            ),
 
-    const MarkAllAsActive = () =>
-        Task.where(`#actor marks all items as completed`,
-            Send.a(PatchRequest.to('/api/todos').with({ completed: false })),
-            Ensure.that(LastResponse.status(), equals(200)),
-        )       
+        asActive: () =>
+            Task.where(`#actor marks all items as completed`,
+                Send.a(PatchRequest.to('/api/todos').with({ completed: false })),
+                Ensure.that(LastResponse.status(), equals(200)),
+            )
+    }
 
-    const VerifyRecordedTodos = {                                           // a more advanced object:
+    const VerifyRecordedTodos = {                                           // an slightly more advanced object:
                                                                             // it groups two Tasks, 
         haveAtLeastOneThat: (expectation: Expectation<Todo, any>) =>        // each parameterized with an Expectation
             Task.where(`#actor verifies that recorded todos ${ expectation }`,
@@ -124,7 +126,7 @@ describe('04 Mocha (solution)', () => {
                         AddAnItemCalled('Learn Serenity/JS'),
                         AddAnItemCalled('Learn Screenplay Pattern'),
                         
-                        MarkAllAsCompleted(),
+                        MarkAll.asCompleted(),
 
                         VerifyRecordedTodos.haveAllItemsThat(
                             property('completed', equals(true)),
@@ -139,8 +141,8 @@ describe('04 Mocha (solution)', () => {
                         AddAnItemCalled('Learn Serenity/JS'),
                         AddAnItemCalled('Learn Screenplay Pattern'),
 
-                        MarkAllAsCompleted(),
-                        MarkAllAsActive(),
+                        MarkAll.asCompleted(),
+                        MarkAll.asActive(),
 
                         VerifyRecordedTodos.haveAllItemsThat(
                             property('completed', equals(false)),

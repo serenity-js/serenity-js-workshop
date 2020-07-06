@@ -2,7 +2,7 @@
   "code-runner.enableAppInsights": false,
   "code-runner.executorMap": {
     "javascript": "node",
-    "typescript": "node --require='ts-node/register'"
+    "typescript": "node --require=\"ts-node/register\""
   },
   "mochaExplorer.files": "exercises/*/spec/**/*.spec.ts",
   "mochaExplorer.logpanel": true,

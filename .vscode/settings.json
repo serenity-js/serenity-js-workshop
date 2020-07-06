@@ -21,6 +21,10 @@
   "typescript.preferences.quoteStyle": "single",
   "files.autoSave": "afterDelay",
 
-  "debug.inlineValues": true
+  "debug.inlineValues": true,
+  "cSpell.words": [
+    "Todos",
+    "Molak"
+  ]
 }
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "playground start",
+    "start": "playground start --db target/todos.json",
     "clean": "rimraf target && npm",
     "postinstall": "npm run postinstall:setup && npm run postinstall:check",
     "postinstall:setup": "npm run postinstall:setup:lerna  && npm run postinstall:setup:serenity",

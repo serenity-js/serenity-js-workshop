@@ -4,6 +4,9 @@
  * - @serenity-js/mocha
  *   - Documentation   - https://serenity-js.org/modules/mocha/
  * 
+ * - @serenity-js/rest
+ *   - Documentation   - https://serenity-js.org/modules/rest/
+ * 
  * - Mocha
  *   - Documentation   - https://mochajs.org/
  *   - Configuration   - https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml

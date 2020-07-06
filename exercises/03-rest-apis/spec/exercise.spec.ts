@@ -56,6 +56,7 @@ describe('03 Mocha (exercise)', () => {
                         // Verify that item called 'Learn Serenity/JS' has been added
                         Send.a(GetRequest.to('/api/todos')),
                         Log.the(LastResponse.body()),
+
                         Ensure.that(
                             LastResponse.body<Todo[]>(),
                             containAtLeastOneItemThat(and(

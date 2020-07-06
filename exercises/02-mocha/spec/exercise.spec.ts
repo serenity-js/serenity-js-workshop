@@ -17,7 +17,7 @@
 
 import 'mocha';
 
-import { actorCalled, configure, Log, Interaction } from '@serenity-js/core';
+import { actorCalled, configure, Log } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import { Ensure, equals, isGreaterThan, property } from '@serenity-js/assertions';

@@ -7,7 +7,7 @@
 
 import 'mocha';
 
-import { Actor, actorCalled, Cast, configure, engage, Log, TakeNotes } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, configure, engage, Log } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send, PatchRequest } from '@serenity-js/rest';
 import { and, containAtLeastOneItemThat, Ensure, equals, property, containItemsWhereEachItem } from '@serenity-js/assertions';
@@ -18,8 +18,6 @@ describe('03 Mocha (solution)', () => {
         prepare(actor: Actor): Actor {
             return actor.whoCan(
                 CallAnApi.at('http://localhost:3000'),
-
-                TakeNotes.usingAnEmptyNotepad(),
             );
         }
     }
@@ -83,7 +81,7 @@ describe('03 Mocha (solution)', () => {
                         Log.the(LastResponse.body()),
                         Ensure.that(LastResponse.status(), equals(200)),
 
-                        // Toggle all items
+                        // Mark all items as complete
                         Send.a(PatchRequest.to('/api/todos').with({ completed: true })),
                         Ensure.that(LastResponse.status(), equals(200)),
 

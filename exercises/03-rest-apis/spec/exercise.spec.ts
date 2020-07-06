@@ -7,7 +7,7 @@
 
 import 'mocha';
 
-import { Actor, actorCalled, Cast, configure, engage, Log, TakeNotes } from '@serenity-js/core';
+import { Actor, actorCalled, Cast, configure, engage, Log } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send, PatchRequest } from '@serenity-js/rest';
 import { and, containAtLeastOneItemThat, Ensure, equals, property, containItemsWhereEachItem } from '@serenity-js/assertions';
@@ -18,8 +18,6 @@ describe('03 Mocha (exercise)', () => {
         prepare(actor: Actor): Actor {
             return actor.whoCan(
                 CallAnApi.at('http://localhost:3000'),
-
-                TakeNotes.usingAnEmptyNotepad(),
             );
         }
     }
@@ -75,7 +73,7 @@ describe('03 Mocha (exercise)', () => {
                         // implement me!
                         // - add an item called 'Learn Serenity/JS'
                         // - add an item called 'Learn Screenplay Pattern'
-                        // - toggle all items
+                        // - mark all items as complete
                         //   - PATCH '/api/todos' { completed: true }
                         // - ensure all items are marked as completed
                     )

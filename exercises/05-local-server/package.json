@@ -12,19 +12,21 @@
     "url": "git+https://github.com/serenity-js/workshop.git"
   },
   "scripts": {
-    "test": "mocha spec/exercise.spec.ts",
-    "exercise": "mocha spec/solution.spec.ts"
+    "test": "mocha -g \"exercise\"",
+    "solution": "mocha -g \"solution\""
   },
   "bugs": {
     "url": "https://github.com/serenity-js/workshop/issues"
   },
   "dependencies": {
-    "@serenity-js/assertions": "^2.12.0",
-    "@serenity-js/core": "^2.12.0",
-    "@serenity-js/console-reporter": "^2.12.0",
-    "@serenity-js/mocha": "^2.12.0",
-    "@serenity-js/rest": "^2.12.0",
+    "@serenity-js/assertions": "^2.12.1",
+    "@serenity-js/core": "^2.12.1",
+    "@serenity-js/console-reporter": "^2.12.1",
+    "@serenity-js/local-server": "^2.12.1",
+    "@serenity-js/mocha": "^2.12.1",
+    "@serenity-js/rest": "^2.12.1",
     "@types/mocha": "^7.0.2",
+    "@types/node": "^12.12.47",
     "mocha": "^8.0.1"
   }
 }

@@ -25,7 +25,7 @@ import {
 } from './screenplay';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
 
-describe('Playground Todo App', function() {
+describe('07 UI testing (solution)', function() {
 
     this.timeout(30000);
 

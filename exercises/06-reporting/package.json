@@ -12,19 +12,29 @@
     "url": "git+https://github.com/serenity-js/workshop.git"
   },
   "scripts": {
-    "test": "mocha spec/exercise.spec.ts",
-    "solution": "mocha spec/solution.spec.ts"
+    "postinstall": "serenity-bdd update --ignoreSSL",
+    "test": "failsafe test:clean test:execute test:report",
+    "test:clean": "rimraf target",
+    "test:execute": "mocha -g \"exercise\"",
+    "test:report": "serenity-bdd run",
+    "solution": "failsafe solution:clean solution:execute solution:report",
+    "solution:clean": "rimraf target",
+    "solution:execute": "mocha -g \"solution\"",
+    "solution:report": "serenity-bdd run"
   },
   "bugs": {
     "url": "https://github.com/serenity-js/workshop/issues"
   },
   "dependencies": {
-    "@serenity-js/assertions": "^2.12.0",
-    "@serenity-js/core": "^2.12.0",
-    "@serenity-js/console-reporter": "^2.12.0",
-    "@serenity-js/mocha": "^2.12.0",
-    "@serenity-js/rest": "^2.12.0",
+    "@serenity-js/assertions": "^2.12.1",
+    "@serenity-js/core": "^2.12.1",
+    "@serenity-js/console-reporter": "^2.12.1",
+    "@serenity-js/mocha": "^2.12.1",
+    "@serenity-js/rest": "^2.12.1",
+    "@serenity-js/serenity-bdd": "^2.12.1",
     "@types/mocha": "^7.0.2",
-    "mocha": "^8.0.1"
+    "mocha": "^8.0.1",
+    "npm-failsafe": "^0.4.1",
+    "rimraf": "^3.0.2"
   }
 }

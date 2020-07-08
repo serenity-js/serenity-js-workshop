@@ -3,13 +3,14 @@ import { Task } from '@serenity-js/core';
 import { Navigate, Website } from '@serenity-js/protractor';
 import { RecordItem } from './RecordItem';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
+import { TodoList } from './ui';
+import { NumberOfRecordedItems } from './NumberOfRecordedItems';
+import { RecordedItems } from './RecordedItems';
 
 export class Start {
     static withAnEmptyList = () =>
         Task.where(`#actor starts with an empty list`,
-            CheckIfTheServerIsUp(),
-            Navigate.to('/'),
-            Ensure.that(Website.title(), equals('Serenity/JS Playground')),
+            Ensure.that(RecordedItems(), equals([])),
         );
 
     static withAListContaining = (...items: string[]) =>
@@ -18,9 +19,3 @@ export class Start {
             ...items.map(RecordItem.called),
         );
 }
-
-const CheckIfTheServerIsUp = () =>
-    Task.where(`#actor checks if the server is up`,
-        Send.a(GetRequest.to('/api/health/')),
-        Ensure.that(LastResponse.status(), equals(200)),
-    );

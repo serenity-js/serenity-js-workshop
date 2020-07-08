@@ -3,13 +3,14 @@ const
     { ConsoleReporter } = require('@serenity-js/console-reporter'),
     { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions } = require('@serenity-js/protractor'),
     { SerenityBDDReporter } = require('@serenity-js/serenity-bdd'),
+    path = require('path'),
     isCI = require('is-ci');
 
 /**
  * @type { import("protractor").Config }
  */
 exports.config = {
-    baseUrl: 'http://localhost:4200/',
+    baseUrl: 'http://localhost:3000/',
 
     chromeDriver: require(`chromedriver/lib/chromedriver`).path,
 
@@ -23,23 +24,31 @@ exports.config = {
     frameworkPath:  require.resolve('@serenity-js/protractor/adapter'),
 
     specs: [
-        './src/**/*.spec.ts'
+        './**/*.e2e.ts'
     ],
 
     serenity: {
         runner: 'mocha',
         crew: [
-            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            ConsoleReporter.forDarkTerminals(),
-            Photographer.whoWill(TakePhotosOfInteractions),     // or Photographer.whoWill(TakePhotosOfInteractions),
+            ConsoleReporter.withDefaultColourSupport(),
+
+            // Takes screenshots automatically
+            Photographer.whoWill(TakePhotosOfFailures),     
+            // Photographer.whoWill(TakePhotosOfInteractions),
+
+            // Generates HTML reports using Serenity BDD
             new SerenityBDDReporter(),
+
+            // Archives (stores) any artifacts emitted by Photographer and SerenityBDDReporter
+            // at a desired location
+            ArtifactArchiver.storingArtifactsAt(path.join(__dirname, 'target/site/serenity')),
         ]
     },
 
-    onPrepare() {
-        require('ts-node').register({
-            project: require('path').join(__dirname, './tsconfig.json')
-        });
+    mochaOpts: {
+        require: [
+            'ts-node/register',
+        ]
     },
 
     capabilities: {
@@ -59,7 +68,6 @@ exports.config = {
                 '--log-level=3',
                 '--disable-gpu',
                 '--window-size=1920,1080',
-                '--headless',
             ].concat(isCI ? ['--headless'] : [])    // run in headless mode on the CI server
         }
     }

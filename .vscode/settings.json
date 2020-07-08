@@ -8,6 +8,8 @@
   "mochaExplorer.logpanel": true,
   "mochaExplorer.pruneFiles": true,
 
+  "run-protractor.protractorConfiguration": "exercises/07-ui/protractor.conf.js",
+
   "terminal.integrated.env.osx": {
 		"PATH": "node_modules/.bin:${env:PATH}"
   },

@@ -12,8 +12,15 @@
     "url": "git+https://github.com/serenity-js/workshop.git"
   },
   "scripts": {
-    "test": "protractor ../../protractor.conf.js --specs=e2e/exercise.e2e.ts",
-    "solution": "protractor ../../protractor.conf.js --specs=e2e/solution.e2e.ts"
+    "postinstall": "serenity-bdd update --ignoreSSL --cacheDir \"../../node_modules/@serenity-js/serenity-bdd/cache\"",
+    "test": "failsafe test:clean test:execute test:report",
+    "test:clean": "rimraf target",
+    "test:execute": "protractor ./protractor.conf.js --specs=exercise/playground-app.e2e.ts",
+    "test:report": "serenity-bdd run --cacheDir \"../../node_modules/@serenity-js/serenity-bdd/cache\"",
+    "solution": "failsafe solution:clean solution:execute solution:report",
+    "solution:clean": "rimraf target",
+    "solution:execute": "protractor ./protractor.conf.js --specs=solution/playground-app.e2e.ts",
+    "solution:report": "serenity-bdd run --cacheDir \"../../node_modules/@serenity-js/serenity-bdd/cache\""
   },
   "bugs": {
     "url": "https://github.com/serenity-js/workshop/issues"
@@ -26,9 +33,12 @@
     "@serenity-js/mocha": "^2.12.1",
     "@serenity-js/protractor": "^2.12.1",
     "@serenity-js/rest": "^2.12.1",
+    "@serenity-js/serenity-bdd": "^2.12.1",
     "@types/mocha": "^7.0.2",
     "chromedriver": "^83.0.0",
     "mocha": "^8.0.1",
-    "protractor": "^7.0.0"
+    "npm-failsafe": "^0.4.1",
+    "protractor": "^7.0.0",
+    "rimraf": "^3.0.2"
   }
 }

@@ -1,5 +1,7 @@
 export * from './ClearLocalStorage';
 export * from './FilterItems';
+export * from './LaunchPlaygroundApp';
+export * from './NumberOfRecordedItems';
 export * from './RecordedItems';
 export * from './RecordItem';
 export * from './RemoveItem';

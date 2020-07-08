@@ -12,15 +12,15 @@
     "url": "git+https://github.com/serenity-js/workshop.git"
   },
   "scripts": {
-    "postinstall": "serenity-bdd update --ignoreSSL",
+    "postinstall": "serenity-bdd update --ignoreSSL --cacheDir \"../../node_modules/@serenity-js/serenity-bdd/cache\"",
     "test": "failsafe test:clean test:execute test:report",
     "test:clean": "rimraf target",
     "test:execute": "mocha -g \"exercise\"",
-    "test:report": "serenity-bdd run",
+    "test:report": "serenity-bdd run --cacheDir \"node_modules/@serenity-js/serenity-bdd/cache\"",
     "solution": "failsafe solution:clean solution:execute solution:report",
     "solution:clean": "rimraf target",
     "solution:execute": "mocha -g \"solution\"",
-    "solution:report": "serenity-bdd run"
+    "solution:report": "serenity-bdd run --cacheDir \"../../node_modules/@serenity-js/serenity-bdd/cache\""
   },
   "bugs": {
     "url": "https://github.com/serenity-js/workshop/issues"
